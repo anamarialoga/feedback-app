@@ -1,39 +1,44 @@
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
-import Header from './components/Header'
-import FeedbackList from './components/FeedbackList'
-import FeedbackStats from './components/FeedbackStats'
-import FeedbackForm from './components/FeedbackForm'
-import AboutIconLink from './components/AboutIconLink'
-import AboutPage from './pages/AboutPage'
-import { FeedbackProvider } from './context/FeedbackContext'
+//main App component
+import { useState } from "react"
+import { FeedbackForm } from "./components/FeedbackForm.jsx";
+import { FeedbackList } from "./components/FeedbackList.jsx";
+import { FeedbackStats } from "./components/FeedbackStats.jsx";
+import { Header } from "./components/Header.jsx"
+import { FeedbackData } from "./data/feedbackData.js";
 
-function App() {
-  return (
-    <FeedbackProvider>
-      <Router>
-        <Header />
-        <div className='container'>
-          <Routes>
-            <Route
-              exact
-              path='/'
-              element={
-                <>
-                  <FeedbackForm />
-                  <FeedbackStats />
-                  <FeedbackList />
-                </>
-              }
-            ></Route>
 
-            <Route path='/about' element={<AboutPage />} />
-          </Routes>
+export const App = () => {
+    const [feedback, setFeedback] = useState(FeedbackData);
 
-          <AboutIconLink />
+    const deleteFeedbackItem = (id) => {
+        if(window.confirm('Are you sure you want to delete?'))
+            setFeedback(feedback.filter((item) => item.id !== id));
+            // Re-filters the same feedback array for each on-click;
+    }
+
+    const addFeedbackItem = (newFeedObj) => {
+        let newId = Number(feedback.length + 1);
+        newFeedObj.id= newId;
+        console.log(newFeedObj);
+
+        //preserves the state && adds the new object into the feedback list;
+        setFeedback([newFeedObj, ...feedback]); 
+    }
+
+
+    return (
+        <>
+        <Header text="Feedback UI"/>,
+        <div className="container">
+        <FeedbackForm handleAdd={addFeedbackItem}/>
+        {/* APP.JS RECEIVES THE FUNCTION DECLARATION THROUGH FEEDBACK FORM */}
+        {/* APP.JS IMPLEMENTS THE FUNCTIONALITY FOR THE FUNCTION DECLARATION */}
+        <FeedbackStats feedback = {feedback}/>
+        <FeedbackList feedback={feedback} handleDelete={deleteFeedbackItem}/>
+        {/* APP.JS RECEIVES THE FUNCTION DECLARATION THROUGH FEEDBACK LIST */}
+        {/* APP.JS IMPLEMENTS THE FUNCTIONALITY FOR THE FUNCTION DECLARATION */}
         </div>
-      </Router>
-    </FeedbackProvider>
-  )
+        </>
+        
+    )
 }
-
-export default App

@@ -1,11 +1,9 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import './index.css'
-import App from './App'
+//entry point to React
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-)
+import React from "react";
+import ReactDOM from "react-dom";
+import { App } from "./App";
+import './index.css';
+
+//React dom renders our app-content into index.html, from index.js, through root;
+ReactDOM.render(<App/>, document.getElementById('root'));
