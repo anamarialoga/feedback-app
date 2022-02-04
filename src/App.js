@@ -1,11 +1,12 @@
 //main App component
 import { useState } from "react"
+import { AboutIconLink } from "./components/AboutIconLink.jsx";
 import { FeedbackForm } from "./components/FeedbackForm.jsx";
 import { FeedbackList } from "./components/FeedbackList.jsx";
 import { FeedbackStats } from "./components/FeedbackStats.jsx";
 import { Header } from "./components/Header.jsx"
 import { FeedbackData } from "./data/feedbackData.js";
-
+import { About } from "./pages_route/About.jsx";
 
 export const App = () => {
     const [feedback, setFeedback] = useState(FeedbackData);
@@ -37,6 +38,7 @@ export const App = () => {
         <FeedbackList feedback={feedback} handleDelete={deleteFeedbackItem}/>
         {/* APP.JS RECEIVES THE FUNCTION DECLARATION THROUGH FEEDBACK LIST */}
         {/* APP.JS IMPLEMENTS THE FUNCTIONALITY FOR THE FUNCTION DECLARATION */}
+        <AboutIconLink/>
         </div>
         </>
         
