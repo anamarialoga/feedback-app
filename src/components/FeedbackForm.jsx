@@ -1,12 +1,15 @@
+import { useContext } from "react";
 import { useState } from "react"
+import { FeedbackContext } from "../context/FeedbackContext";
 import { FeedbackSelect } from "./FeedbackSelect";
 import { Button } from "./shared/Button";
 import { Card } from "./shared/Card"
 
-export const FeedbackForm = ({handleAdd}) => {
+export const FeedbackForm = () => {
     const [text, setText] = useState(""); 
     const [rating, setRating] = useState(10);
     //console.log(rating);
+    
     //VALIDATION FOR MIN CHARACTERS 
     const [btnDisabled, setBtnDisabled] = useState(true);
     const [validationMess, setValidationMess] = useState("")
@@ -24,6 +27,9 @@ export const FeedbackForm = ({handleAdd}) => {
             }
     }
 
+    //EXTRACT THE Add FUNCTIONALITY FROM CONTEXT
+    const {addFeedbackItem} = useContext(FeedbackContext);
+
     const handleSubmit = (e)=>{
         e.preventDefault(); 
         if(text.length>=9)
@@ -32,8 +38,7 @@ export const FeedbackForm = ({handleAdd}) => {
                 text,
                 rating,
             }
-            //Sends the new feedback obj to App.js through handleAdd() prop
-            handleAdd(newFeedback);
+            addFeedbackItem(newFeedback);
             setText(''); //resetting text input after submitting;
         }
     }

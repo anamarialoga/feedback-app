@@ -1,9 +1,16 @@
 import { AnimatePresence, motion } from "framer-motion";
+import { useContext } from "react";
+import { FeedbackContext } from "../context/FeedbackContext";
 import { FeedbackItem } from "./FeedbackItem";
 
-export const FeedbackList = ({feedback, handleDelete}) =>
+export const FeedbackList = () =>
 {
+    //EXTRACT WHAT WE NEED FROM OUR CONTEXT, BY PASSING IT TO THE HOOK
+    //wE HAVE ACCESS TO ANYTHING THAT'S IN THE VALUE PROPERTY -> feedback (in this case)
+    //PASS THE VALUE INTO {}
+    const {feedback} = useContext(FeedbackContext); 
     //console.log(feedback);
+
     if(feedback.length > 0)
     return (
     <div className="feedback-list">
@@ -15,10 +22,8 @@ export const FeedbackList = ({feedback, handleDelete}) =>
                     animate={{opacity: 1}}
                     exit={{opacity:0}}
             >
-            <FeedbackItem key={item.id} item={item} handleDelete={handleDelete}/>
+            <FeedbackItem key={item.id} item={item}/>
             </motion.div>))}
-            {/* FEEDBACK LIST ONLY RECEIVES THE FUNCTION DECLARATION, DOESN'T CALL IT */}
-            {/* SENDS THE FUNCTION DECLARATION FURTHER TO APP.JS, WHICH HOLDS THE DATA*/}
         </AnimatePresence>
     </div>)
     return <>No Feedback Yet</>

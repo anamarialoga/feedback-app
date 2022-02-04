@@ -1,13 +1,16 @@
 import { Card } from "./shared/Card";
 import {FaTimes} from "react-icons/fa";
-export const FeedbackItem = ({item, handleDelete}) => {
+import { useContext } from "react";
+import { FeedbackContext } from "../context/FeedbackContext";
+export const FeedbackItem = ({item}) => {
+
+    //EXTRACT THE FUNCTIONALITY FOR DELETING AN ITEM FROM CONTEXT
+    const {deleteFeedbackItem} = useContext(FeedbackContext);
+    
     return (
     <Card>
         <div className="num-display">{item.rating}</div>
-        <button className="close" onClick={() => handleDelete(item.id)}>
-            {/* CREATES A FUNCTION THAT CALLS HANDLEDELETE WITH AN ARGUMENT ITEM.ID*/}
-            {/* ARROW FUNCTION BECAUSE IT WILL TRIGGER ONLY FOR ONCLICK*/}
-            {/* SENDS THE ITEM.ID THROUGH FUNCTION PARAMETER --> FEEDBACK LIST*/}
+        <button className="close" onClick={() => deleteFeedbackItem(item.id)}>
             <FaTimes color='purple'/>
         </button>
         <div className="text-display">{item.text}</div>
