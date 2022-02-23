@@ -1,7 +1,5 @@
 # React Feedback App
 
-React Front To Back 2022 course - Udemy
-
 ### Install dependencies
 
 ```bash
