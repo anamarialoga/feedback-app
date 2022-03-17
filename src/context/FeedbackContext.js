@@ -8,6 +8,7 @@ export const FeedbackProvider = ({children}) => {
     const [feedback, setFeedback] = useState([]);
 
     //empty array because we only want the effect to run once, when page loades;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(()=>{fetchFeedback()},[]) 
 
     const fetchFeedback = async () => {
